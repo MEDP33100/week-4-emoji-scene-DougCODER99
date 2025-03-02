@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy and Sad Emoji</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 200vh;
+            background-color: #ffffff;
+            font-family: Arial, sans-serif;
+            flex-direction: column;
+        }
+        .emoji {
+            font-size: 80px;
+        cursor: pointer;
+        margin: 0 20px;
+        opacity: 0; /* Initially hidden */
+        }
+    </style>
+</head>
+<body>
+    <div class="happy">😊</div>
+    <div class="sad">😢</div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gasp/3.9.1/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gasp/3.9.1/ScrollTrigger.min.js"></script>
+<script>
+    //Register ScrollTrigger plugin
+    gsap.registerPlugin(ScrollTrigger);
+
+function createScrollAnimation(elementId, startOffset, endOffset, yValue) {
+gsap.fromTo(`#${elementId}`, 
+{
+    opacity: 0,
+    y: yValue
+}, 
+{
+    opacity: 1,
+    y: 0,
+    scrollTrigger: {
+        trigger: `#${elementId}`,
+        start: `top ${startOffset}`,
+        end: `top ${endOffset}`,
+        scrub: true, //smoothly animate when scrolling
+        markers: false // Remove markers
+    }
+}); 
+}
+
+createScrollAnimation("happy", "80%", "20%", 100); // Emoji "happy" animates from below 
+createScrollAnimation("sad", "80%", "20%", -100); // Emoji "sad" animates from above
+</script>
+</body>
+</html>
